@@ -15,4 +15,27 @@ model User {
   name     String?
   email    String  @unique
   password String
+
+  books Book[]
+}
+
+model RevokedToken {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  token String @unique
+
+  createdAt DateTime @default(now())
+}
+
+model Book {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  author      String
+  publisherId String   @db.ObjectId
+  publisher   User     @relation(fields: [publisherId], references: [id]) // 
+  year        Int
+  pages       Int
+  isbn        String
+  cover       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
