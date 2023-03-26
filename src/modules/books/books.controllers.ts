@@ -3,7 +3,7 @@ import { bookPayloadSchema } from "./books.schemas";
 import { BookService } from "./books.services";
 
 export const createBookController = asyncHandler(async (req, res) => {
-  const { userId, body } = req;
+  const { user, body } = req;
 
   const cleanedPayload = bookPayloadSchema.parse(body);
 
@@ -11,7 +11,7 @@ export const createBookController = asyncHandler(async (req, res) => {
     ...cleanedPayload,
     publisher: {
       connect: {
-        id: userId,
+        id: user?.id,
       },
     },
   });
@@ -20,9 +20,11 @@ export const createBookController = asyncHandler(async (req, res) => {
 });
 
 export const getAllBooksController = asyncHandler(async (req, res) => {
-  const { userId } = req;
+  const { user } = req;
+
   const books = await BookService.getAllBooks({
-    publisherId: userId,
+    publisherId: user?.id,
   });
-  return res.json(books);
+
+  res.json(books);
 });

@@ -19,7 +19,7 @@ export const asyncHandler =
             message: errors[0].message,
           });
         } else {
-          next(createHttpError(err.status, err.message));
+          next(createHttpError(err.status || 500, err.message));
         }
       }
     );
