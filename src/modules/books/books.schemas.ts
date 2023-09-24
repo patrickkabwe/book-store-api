@@ -9,7 +9,7 @@ export const bookPayloadSchema = z.object({
   isbn: z
     .string({
       invalid_type_error: "ISBN must be a string",
-      required_error: "ISBN is required",
+      required_error: "ISBN is required1",
     })
     .min(10, "ISBN must be 10 or 13 characters long")
     .max(13, "ISBN must be 10 or 13 characters long"),
